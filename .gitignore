@@ -1,0 +1,47 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+**/venv/
+**/.venv/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Node / frontend build
+node_modules/
+frontend/node_modules/
+dist/
+build/
+frontend/dist/
+
+# Local vector DB / runtime state
+embeddings/qdrant_db/.lock
+*.db
+*.sqlite
+
+# Local generated data artifacts
+ingestion/data/processed/
+chunking/data/
+**/data/processed/
+backend/ingestion/data/
+backend/chunking/data/chunks.jsonl
+backend/embeddings/qdrant_db/
+run_retrieval.sh
