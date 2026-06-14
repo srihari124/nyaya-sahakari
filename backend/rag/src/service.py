@@ -4,7 +4,7 @@ import hashlib
 from typing import Dict, List, Optional
 
 from retrieval.src.search import Retriever
-from rag.src.llm import QwenLLM
+from rag.src.llm import get_llm
 from rag.src.prompt import get_system_prompt, build_user_prompt
 from rag.src.rewrite import rewrite_query
 from rag.src.reranker import reranker
@@ -27,7 +27,7 @@ class RAGService:
     def __init__(self):
         self.retriever = Retriever()
         self.reranker = reranker
-        self.llm = QwenLLM()
+        self.llm = get_llm()
         logger.info("RAGService initialized")
 
     def preload(self):
