@@ -3,7 +3,7 @@ import time
 import hashlib
 from typing import Dict, List, Optional
 
-from retrieval.src.search import Retriever
+from retrieval.src.hybrid_retrieval import get_hybrid_retriever
 from rag.src.llm import get_llm
 from rag.src.prompt import get_system_prompt, build_user_prompt
 from rag.src.rewrite import rewrite_query
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class RAGService:
 
     def __init__(self):
-        self.retriever = Retriever()
+        self.retriever = get_hybrid_retriever()
         self.reranker = reranker
         self.llm = get_llm()
         logger.info("RAGService initialized")
@@ -111,10 +111,10 @@ class RAGService:
         rewritten_query, filters = rewrite_query(query)
 
         retrieval_start = time.perf_counter()
-        results = self.retriever.search(
+        results = self.retriever.hybrid_search(
             rewritten_query,
             top_k=RETRIEVAL_TOP_K,
-            filters=filters if filters else None
+            filters=filters if filters else None,
         )
         retrieval_time = time.perf_counter() - retrieval_start
         logger.info("Retrieval time: %.3fs", retrieval_time)
