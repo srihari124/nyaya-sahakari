@@ -7,6 +7,12 @@ import numpy as np
 import torch
 from sentence_transformers import SentenceTransformer
 
+from rag.config import (
+    VALIDATOR_MODEL_NAME,
+    VALIDATOR_GROUNDING_THRESHOLD,
+    VALIDATOR_MAX_RISK_SCORE,
+)
+
 logger = logging.getLogger(__name__)
 
 # Keep CPU pressure low on Mac.
@@ -19,9 +25,9 @@ class AnswerValidator:
 
     def __init__(
         self,
-        model_name: str = "BAAI/bge-base-en-v1.5",
-        grounding_threshold: float = 0.65,
-        max_risk_score: int = 4,
+        model_name: str = VALIDATOR_MODEL_NAME,
+        grounding_threshold: float = VALIDATOR_GROUNDING_THRESHOLD,
+        max_risk_score: int = VALIDATOR_MAX_RISK_SCORE,
     ):
         self.model = SentenceTransformer(model_name, device=DEVICE)
         self.grounding_threshold = grounding_threshold

@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 
 from retrieval.src.hybrid_retrieval import get_hybrid_retriever
 from rag.src.llm import get_llm
+from rag.src.tracing import observe, langfuse_context
 from rag.src.prompt import get_system_prompt, build_user_prompt
 from rag.src.rewrite import rewrite_query
 from rag.src.reranker import reranker
@@ -105,7 +106,13 @@ class RAGService:
 
         return answer
 
+    @observe(name="rag-query")
     def generate_answer(self, query: str) -> Dict:
+        langfuse_context.update_current_trace(
+            input=query,
+            tags=["rag", "legal-ai"],
+        )
+
         total_start = time.perf_counter()
 
         rewritten_query, filters = rewrite_query(query)

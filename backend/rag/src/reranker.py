@@ -10,6 +10,7 @@ from rag.config import (
     RERANKER_BATCH_SIZE,
     RERANKER_TIMEOUT_SEC,
     RERANKER_DEVICE,
+    RERANKER_MODEL_NAME,
 )
 
 torch.set_num_threads(2)
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 class Reranker:
     """Rerank retrieved chunks with the BGE reranker model."""
 
-    def __init__(self, model_name: str = "BAAI/bge-reranker-v2-m3"):
+    def __init__(self, model_name: str = RERANKER_MODEL_NAME):
         self.model_name = model_name
         auto_device = "mps" if torch.backends.mps.is_available() else "cpu"
         self.device = RERANKER_DEVICE if RERANKER_DEVICE in {"cpu", "mps"} else auto_device

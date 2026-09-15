@@ -17,3 +17,8 @@ RERANKER_BATCH_SIZE = int(os.getenv("RERANKER_BATCH_SIZE", "4"))
 RERANKER_TIMEOUT_SEC = int(os.getenv("RERANKER_TIMEOUT_SEC", "20"))
 # Override the reranker device if needed.
 RERANKER_DEVICE = os.getenv("RERANKER_DEVICE", "").strip().lower()
+RERANKER_MODEL_NAME = os.getenv("RERANKER_MODEL_NAME", "BAAI/bge-reranker-v2-m3")
+
+VALIDATOR_MODEL_NAME = os.getenv("VALIDATOR_MODEL_NAME", "BAAI/bge-base-en-v1.5")
+VALIDATOR_GROUNDING_THRESHOLD = float(os.getenv("VALIDATOR_GROUNDING_THRESHOLD", "0.65"))
+VALIDATOR_MAX_RISK_SCORE = int(os.getenv("VALIDATOR_MAX_RISK_SCORE", "4"))
